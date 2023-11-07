@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  db: 
+    container_name: project_db
+    image: mysql:8.0
+    restart: always
+    tty: true
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_USER: db-user
+      MYSQL_PASSWORD: db-pass
+      MYSQL_ROOT_PASSWORD: password
+    ports: 
+      - 3306:3306
+    command: --port 3306
+    volumes: 
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./mysql/conf.d:/etc/myaql/conf.d
+      - ./mysql/log/mysql:/var/log/mysql
+
+  backend:
+    links:
+      - db
+    build: ./backend/
+    tty: true
+    container_name: backend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend/:/usr/src/backend/
+
+  frontend:
+    build: ./frontend/
+    container_name: frontend
+    volumes:
+      - ./frontend/:/usr/src/frontend/
+    tty: true
+    stdin_open: true
+    command: sh -c "cd app && npm run start"
+    ports:
+      - 3000:3000
+
