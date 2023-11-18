@@ -21,4 +21,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# @app.get('/')
+# def test():
+#     return {'message':'test'}
+
 app.include_router(auth_api.router)
