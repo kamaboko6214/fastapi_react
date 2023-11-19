@@ -42,7 +42,7 @@ function App() {
       method: 'get',
       headers: {
         'accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huZG9lIiwiZXhwIjoxNzAwMjk3NDcxfQ.Bin5H5rbVrD7CjzaPjGGf3ehIHyHBeYeZ-NeNKmIu64',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huZG9lIiwiZXhwIjoxNzAwMzc5MzU2fQ.EpS2FrGVHM1ytcBATNEyOY_6v2iIMeuiEWFMHL2b3ng',
       }
     }).then((res) => {
         console.log(res.data)
