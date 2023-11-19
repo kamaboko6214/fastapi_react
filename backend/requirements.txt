@@ -4,3 +4,7 @@ uvicorn>=0.15.0,<0.16.0
 # sqlサーバーとの接続用
 mysqlclient
 sqlalchemy
+# 認証関連
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
