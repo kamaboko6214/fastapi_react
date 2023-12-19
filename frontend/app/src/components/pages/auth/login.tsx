@@ -9,12 +9,14 @@ const items: Array<{[key: string]: string}> =
     { 
       'id': '1',
       'placeholder': 'メールアドレス', 
-      'name':'mailaddress'
+      'name':'mailaddress',
+      'type':'email'
     },  
     {
       'id': '2',
       'placeholder': 'パスワード', 
-      'name':'password'
+      'name': 'password',
+      'type': 'password'
     },
   ]
 
@@ -27,14 +29,8 @@ const Login: React.FC = () => {
   const postdata = () => {
     const url: string = 'http://localhost:8080/token'
     const data: object = {
-      'grant_type' : '',
-      // 'username' : 'johndoe',
-      // 'password' : 'secret',
       'username' : mailaddress,
       'password' : password,
-      'scope' : '',
-      'client_id' : '',
-      'client_secret' : '',
     }
 
     axios({
@@ -80,25 +76,24 @@ const Login: React.FC = () => {
 
   return (
     <div className='bg-gray-200 min-h-screen'>
-      <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-32'>
-        <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3'>
-          <h1 className='font-bold text-gray-600 mb-8 text-2xl'>ログイン</h1>     
+      <div className='flex flex-col items-center justify-center py-32 max-w-full' >
+        <form className='bg-white shadow-md rounded px-16 pt-6 pb-8 mb-4 max-w-xl w-full'>
+          <h1 className='font-bold text-gray-600 mb-10 text-3xl'>ログイン</h1>     
             {items.map((item) => {
               return (
-              <div className='mb-4' key={item.id}>
-                <Input variant="auth" placeholder={item.placeholder} name={item.name} onChange={handleChange}></Input>
+              <div className='mb-8' key={item.id}>
+                <Input variant="auth" placeholder={item.placeholder} name={item.name} type={item.type} onChange={handleChange} className='h-12'></Input>
               </div>
               )
             })}
-          <div className='mb-4'>
-            <Button variant='squareBlack' className='w-full py-2 px-3' onClick={postdata}>ログイン</Button>
+          <div className='mb-8'>
+            <Button variant='Black' className='w-full py-2 px-3 h-12 font-bold text-xl' onClick={postdata}>ログイン</Button>
           </div>
-          <button onClick={getdata}>test</button>
-          <div className='mb-4'>
+          <div className='mb-8 text-center'>
             <a className='w-full py-2 px-3 text-gray-600 font-bold' href='#'>パスワードをお忘れの方</a>
           </div>
-          <div className='mb-4'>
-            <p className='w-full py-2 px-3 font-bold text-gray-600' >アカウントをお持ちでない方は<a href='/register' className='text-cyan-500'>こちら</a></p>
+          <div className='mb-8 text-center'>
+            <p className='w-full py-2 px-3 font-bold text-gray-600' >アカウントをお持ちでない方は<a href='/register' className='text-emerald-600 duration-100 hover:text-emerald-400'>こちら</a></p>
           </div>
         </form>
       </div>

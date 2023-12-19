@@ -4,6 +4,7 @@ type Props = React.HTMLAttributes<HTMLInputElement> & {
   variant: keyof typeof inputStyle
   placeholder: string
   name: string
+  type: string
 };
 
   const inputStyle = {
@@ -11,13 +12,13 @@ type Props = React.HTMLAttributes<HTMLInputElement> & {
   } as const;
 
 
-  const Input = ({ variant, placeholder, name, ...props }: Props) => {
+  const Input = ({ variant, placeholder, name, type, className, ...props }: Props) => {
   return (
     <input 
-    className={`${inputStyle[variant]}`} 
+    className={`${inputStyle[variant]} ${className}`} 
     name={name} 
     placeholder={placeholder} 
-    type="text"
+    type={type}
     {...props}
     />
   );

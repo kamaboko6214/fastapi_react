@@ -28,22 +28,26 @@ const Register: React.FC = () => {
     { 
       'id': '1',
       'placeholder': 'ユーザー名', 
-      'name':'user_name'
+      'name':'user_name',
+      'type': 'text'
     },  
     { 
       'id': '2',
       'placeholder': 'メールアドレス', 
-      'name':'mailaddress'
+      'name':'mailaddress',
+      'type': 'email'
     },  
     { 
       'id': '3',  
       'placeholder': 'パスワード', 
-      'name':'password'
+      'name': 'password',
+      'type': 'password'
     },  
     {
       'id': '4',
       'placeholder': 'パスワード（確認用）', 
-      'name':'password_confirm'
+      'name': 'password_confirm',
+      'type': 'password'
     },
   ]
   const handleChange = () => {
@@ -60,21 +64,21 @@ const Register: React.FC = () => {
 
   return (
     <div className='bg-gray-200 min-h-screen'>
-      <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-32'>
-        <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3'>
-        <h1 className='font-bold text-gray-600 mb-8 text-2xl'>新規登録</h1>
+      <div className='flex flex-col items-center justify-center py-32'>
+        <form className='bg-white shadow-md rounded px-20 pt-6 pb-8 mb-4 max-w-xl w-full'>
+        <h1 className='font-bold text-gray-600 mb-10 text-3xl'>新規登録</h1>
           {items.map((item) => {
             return (
-            <div className='mb-4' key={item.id}>
-              <Input variant="auth" placeholder={item.placeholder} name={item.name} onChange={handleChange}></Input>
+            <div className='mb-8' key={item.id}>
+              <Input variant="auth" placeholder={item.placeholder} name={item.name} type={item.type} onChange={handleChange} className='h-12'></Input>
             </div>
             )
           })}
-          <div className='mb-4'>
-            <Button variant='squareBlack' className='w-full py-2 px-3'>新規登録</Button>
+          <div className='mb-8'>
+            <Button variant='Black' className='w-full py-2 px-3 h-12 font-bold text-xl'>新規登録</Button>
           </div>
-          <div className='mb-4'>
-            <p className='w-full py-2 px-3 font-bold text-gray-600' >会員登録済みの方は<a href='/login' className='text-cyan-500'>こちら</a></p>
+          <div className='mb-8 text-center'>
+            <p className='w-full py-2 px-3 font-bold text-gray-600' >会員登録済みの方は<a href='/login' className='text-emerald-600 duration-100 hover:text-emerald-400'>こちら</a></p>
           </div>
         </form>
       </div>
