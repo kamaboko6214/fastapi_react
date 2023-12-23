@@ -11,7 +11,8 @@ class UserCreate(UserBase):
     name: str
     email: str
     password: str
-    image_path: Optional[str] = Field(None, description="イメージのパス")
+    # password_confirm: Optional[str] = Field(None, description="パスワード確認用")
+    # # image_path: Optional[str] = Field(None, description="イメージのパス")
 
 class UserCreateResponse(UserBase):
     id: int

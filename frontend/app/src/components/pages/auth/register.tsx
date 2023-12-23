@@ -66,7 +66,7 @@ const Register: React.FC = () => {
     <div className='bg-gray-200 min-h-screen'>
       <div className='flex flex-col items-center justify-center py-32'>
         <form className='bg-white shadow-md rounded px-20 pt-6 pb-8 mb-4 max-w-xl w-full'>
-        <h1 className='font-bold text-gray-600 mb-10 text-3xl'>新規登録</h1>
+        <h1 className='font-bold text-gray-600 mb-10 text-3xl mt-10'>新規登録</h1>
           {items.map((item) => {
             return (
             <div className='mb-8' key={item.id}>

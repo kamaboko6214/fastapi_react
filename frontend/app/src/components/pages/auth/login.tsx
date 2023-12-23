@@ -9,7 +9,7 @@ const items: Array<{[key: string]: string}> =
     { 
       'id': '1',
       'placeholder': 'メールアドレス', 
-      'name':'mailaddress',
+      'name':'email',
       'type':'email'
     },  
     {
@@ -21,7 +21,7 @@ const items: Array<{[key: string]: string}> =
   ]
 
 const Login: React.FC = () => {
-  const [mailaddress, setMailaddress] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   interface Props {
     handleChange: (event: React.ChangeEvent<{}>) => void;
@@ -29,7 +29,7 @@ const Login: React.FC = () => {
   const postdata = () => {
     const url: string = 'http://localhost:8080/token'
     const data: object = {
-      'username' : mailaddress,
+      'username' : email,
       'password' : password,
     }
 
@@ -56,7 +56,7 @@ const Login: React.FC = () => {
       method: 'get',
       headers: {
         'accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huZG9lIiwiZXhwIjoxNzAyOTEzMTc3fQ.36jojliKnmHdljWRz7eJzzJLqVRof29FbA_3Hrrzsvg',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrYWlzZWlAY29tIiwiZXhwIjoxNzAzMzE4OTYxfQ.WQIcO0weEEixiZiRp2S8srq5O97hU2DpfWOvJJivlNA',
       }
     }).then((res) => {
         console.log(res.data)
@@ -67,8 +67,8 @@ const Login: React.FC = () => {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(event.target.name === 'mailaddress') {
-      setMailaddress (event.target.value);
+    if(event.target.name === 'email') {
+      setEmail (event.target.value);
     } else if (event.target.name === 'password') {
       setPassword (event.target.value);
     } 
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
     <div className='bg-gray-200 min-h-screen'>
       <div className='flex flex-col items-center justify-center py-32 max-w-full' >
         <form className='bg-white shadow-md rounded px-16 pt-6 pb-8 mb-4 max-w-xl w-full'>
-          <h1 className='font-bold text-gray-600 mb-10 text-3xl'>ログイン</h1>     
+          <h1 className='font-bold text-gray-600 mb-10 text-3xl mt-10'>ログイン</h1>     
             {items.map((item) => {
               return (
               <div className='mb-8' key={item.id}>
@@ -89,6 +89,7 @@ const Login: React.FC = () => {
           <div className='mb-8'>
             <Button variant='Black' className='w-full py-2 px-3 h-12 font-bold text-xl' onClick={postdata}>ログイン</Button>
           </div>
+          <button onClick={getdata}>test</button>
           <div className='mb-8 text-center'>
             <a className='w-full py-2 px-3 text-gray-600 font-bold' href='#'>パスワードをお忘れの方</a>
           </div>
