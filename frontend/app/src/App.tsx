@@ -4,7 +4,7 @@ import Login from './components/pages/auth/Login'
 import Register from './components/pages/auth/Register'
 import TopPage from './components/pages/TopPage'
 import Header from './components/layouts/Header';
-import AuthProvider from "../src/contexts/Auth";
+import AuthContext from "./contexts/AuthContext";
 import Test from "../src/components/pages/Test";
 
 function App() {

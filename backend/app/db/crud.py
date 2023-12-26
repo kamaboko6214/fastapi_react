@@ -13,7 +13,7 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.user.User).offset(skip).limit(limit).all()
 
 def get_user_by_username(db: Session, username: str):
-    return db.query(models.user.User).filter(models.user.User.name == username).first()
+    return db.query(models.user.User).filter(models.user.User.email == username).first()
 
 def create_user(db: Session, user: schemas.UserCreate):
     db_user = models.user.User(name=user.name,email=user.email, hashed_password=get_password_hash(user.password))

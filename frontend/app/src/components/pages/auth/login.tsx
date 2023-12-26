@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,FormEvent } from 'react'
+import { useCookies } from 'react-cookie';
 import axios from '../../../api/axios'
+
 import Button from '../../common/Button'
 import Input from '../../common/Input'
 
@@ -23,10 +25,15 @@ const items: Array<{[key: string]: string}> =
 const Login: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [cookies, setCookie] = useCookies()
+
   interface Props {
     handleChange: (event: React.ChangeEvent<{}>) => void;
   }
-  const postdata = () => {
+  
+  const postdata = (event: FormEvent) => {
+    event.preventDefault();
+  
     const url: string = 'http://localhost:8080/token'
     const data: object = {
       'username' : email,
@@ -42,7 +49,9 @@ const Login: React.FC = () => {
         },
         data: data
       }).then((res) => {
-        console.log(res.data)
+        console.log(res.data.access_token)
+        setCookie('access_token', res.data.access_token);
+        alert('ログイン成功')
       })
       .catch((error) => {
         console.log(error.response)
@@ -56,7 +65,7 @@ const Login: React.FC = () => {
       method: 'get',
       headers: {
         'accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrYWlzZWlAY29tIiwiZXhwIjoxNzAzMzE4OTYxfQ.WQIcO0weEEixiZiRp2S8srq5O97hU2DpfWOvJJivlNA',
+        'Authorization': `Bearer ${cookies.access_token}`,
       }
     }).then((res) => {
         console.log(res.data)
@@ -89,7 +98,7 @@ const Login: React.FC = () => {
           <div className='mb-8'>
             <Button variant='Black' className='w-full py-2 px-3 h-12 font-bold text-xl' onClick={postdata}>ログイン</Button>
           </div>
-          <button onClick={getdata}>test</button>
+          <button onClick={getdata} type='button'>test</button>
           <div className='mb-8 text-center'>
             <a className='w-full py-2 px-3 text-gray-600 font-bold' href='#'>パスワードをお忘れの方</a>
           </div>

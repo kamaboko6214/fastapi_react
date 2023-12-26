@@ -21,6 +21,11 @@ class UserCreateResponse(UserBase):
         orm_mode = True
 
 class User(UserBase):
-
+    name: str
+    email: Union[str, None] = None
+    hashed_password: Union[str, None] = None
+    image_path: Union[str, None] = None
+    
     class Config:
         orm_mode = True
+
