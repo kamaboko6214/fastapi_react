@@ -1,6 +1,7 @@
 import React, { useState,FormEvent } from 'react'
 import { useCookies } from 'react-cookie';
 import axios from '../../../api/axios'
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../common/Button'
 import Input from '../../common/Input'
@@ -23,6 +24,7 @@ const items: Array<{[key: string]: string}> =
   ]
 
 const Login: React.FC = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [cookies, setCookie] = useCookies()
@@ -34,7 +36,7 @@ const Login: React.FC = () => {
   const postdata = (event: FormEvent) => {
     event.preventDefault();
   
-    const url: string = 'http://localhost:8080/token'
+    const url: string = '/token'
     const data: object = {
       'username' : email,
       'password' : password,
@@ -51,7 +53,7 @@ const Login: React.FC = () => {
       }).then((res) => {
         console.log(res.data.access_token)
         setCookie('access_token', res.data.access_token);
-        alert('ログイン成功')
+        navigate('/stockindex')
       })
       .catch((error) => {
         console.log(error.response)
@@ -59,7 +61,7 @@ const Login: React.FC = () => {
   }
 
   const getdata = () => {
-    const url: string = 'http://localhost:8080/users/me'
+    const url: string = '/users/me'
     axios({
       url: url,
       method: 'get',

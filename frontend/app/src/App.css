@@ -17,6 +17,9 @@
   background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url('/public/images/bg-top.jpg')
 }
 
+.bg-404-page {
+  background-image: url('/public/images/bg-404.jpg')
+}
 
 .App-header {
   background-color: #282c34;

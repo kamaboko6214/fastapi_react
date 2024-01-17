@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
-from app.api import auth_api
+from app.api import auth_api, srvmain
 
 app = FastAPI()
 
@@ -26,3 +26,5 @@ app.add_middleware(
 #     return {'message':'test'}
 
 app.include_router(auth_api.router)
+app.include_router(srvmain.router)
+

@@ -21,6 +21,7 @@ class UserCreateResponse(UserBase):
         orm_mode = True
 
 class User(UserBase):
+    id: int
     name: str
     email: Union[str, None] = None
     hashed_password: Union[str, None] = None
