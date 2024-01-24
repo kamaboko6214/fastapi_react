@@ -2,6 +2,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.db.database import Base
+# from database import Base
 
 
 class Stock(Base):
@@ -14,6 +15,3 @@ class Stock(Base):
     count = Column(Integer, comment='count')
     message = Column(String(100), comment='message')
     user_id = Column(Integer,ForeignKey("users.id"), comment='user_id')
-
-    users = relationship("User", back_populates="stocks")
-    genres = relationship("Genre", back_populates="stocks")

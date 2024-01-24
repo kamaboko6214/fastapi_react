@@ -16,8 +16,7 @@ const useUserAuth = () => {
             return true;
         }
         try {
-            const res = await 
-            axios({
+            const res = await axios({
                 url: "/users/me",
                 method: 'get',
                 headers: {

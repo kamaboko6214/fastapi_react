@@ -1,10 +1,12 @@
-import React, { useState,FormEvent } from 'react'
+import React, { useState,FormEvent, MouseEvent } from 'react'
 import { useCookies } from 'react-cookie';
 import axios from '../../../api/axios'
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../common/Button'
 import Input from '../../common/Input'
+import { signIn } from '../../../hooks/auth'
+import { LoginParams } from '../../../types';
 
 
 const items: Array<{[key: string]: string}> = 
@@ -33,48 +35,25 @@ const Login: React.FC = () => {
     handleChange: (event: React.ChangeEvent<{}>) => void;
   }
   
-  const postdata = (event: FormEvent) => {
-    event.preventDefault();
-  
-    const url: string = '/token'
-    const data: object = {
-      'username' : email,
-      'password' : password,
+  const handleSubmit = async(e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+    const params: LoginParams = {
+      email,
+      password,
     }
-
-    axios({
-        method: 'post',
-        url: url,
-        headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        data: data
-      }).then((res) => {
+    try{
+      const res = await signIn(params)
+      if(res.status === 200) {
         console.log(res.data.access_token)
         setCookie('access_token', res.data.access_token);
         navigate('/stockindex')
-      })
-      .catch((error) => {
-        console.log(error.response)
-      });
-  }
-
-  const getdata = () => {
-    const url: string = '/users/me'
-    axios({
-      url: url,
-      method: 'get',
-      headers: {
-        'accept': 'application/json',
-        'Authorization': `Bearer ${cookies.access_token}`,
+      } else {
+        alert('miss!!')
       }
-    }).then((res) => {
-        console.log(res.data)
-      })
-      .catch((error) => {
-        console.log(error.response)
-      });
+    }
+    catch {
+      console.log('miss')
+    }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,9 +77,8 @@ const Login: React.FC = () => {
               )
             })}
           <div className='mb-8'>
-            <Button variant='Black' className='w-full py-2 px-3 h-12 font-bold text-xl' onClick={postdata}>ログイン</Button>
+            <Button variant='Black' className='w-full py-2 px-3 h-12 font-bold text-xl' onClick={handleSubmit}>ログイン</Button>
           </div>
-          <button onClick={getdata} type='button'>test</button>
           <div className='mb-8 text-center'>
             <a className='w-full py-2 px-3 text-gray-600 font-bold' href='#'>パスワードをお忘れの方</a>
           </div>

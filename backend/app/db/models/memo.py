@@ -1,7 +1,8 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from database import Base
+from app.db.database import Base
+# from database import Base
 
 
 class Memo(Base):
@@ -13,4 +14,3 @@ class Memo(Base):
     user_id = Column(Integer,ForeignKey("users.id"), comment='user_id')
     remarks = Column(String(100), comment='remarks')
     
-    users = relationship("User", back_populates="memos")

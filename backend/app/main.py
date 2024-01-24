@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from app.api import auth_api, srvmain
+import app.db.models 
 
 app = FastAPI()
 

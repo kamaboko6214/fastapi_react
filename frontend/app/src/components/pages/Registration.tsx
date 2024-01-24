@@ -30,11 +30,11 @@ const Registration = () => {
             <h1 className='text-center pt-10 text-2xl font-bold text-gray-700'>在庫登録</h1>
             <form className='py-5 mt-12 text-center'>
                 <div>
-                    {items.map((item) => {
+                    {items.map((item, i) => {
                         return (
                             <>
                                 <label className=" block mb-2 text-md font-medium text-gray-900 dark:text-white">{item.name}</label>
-                                <Input variant="index" placeholder={item.placeholder} name={item.name} type={item.type} className='mb-8'></Input>
+                                <Input key={i} variant="index" placeholder={item.placeholder} name={item.name} type={item.type} className='mb-8'></Input>
                             </>
                         )
                     })}
