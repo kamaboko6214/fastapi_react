@@ -1,21 +1,19 @@
 import { useCookies } from "react-cookie";
 import axios from "../api/axios";
-
-
-const useStockList = () => {
+import { StockList } from "../types";
+  
+const useStockRegistration = () => {
     const [cookies] = useCookies()
-    const diffdate = () => {
-      
-    }
-    const getStockList = async () => {
+    const postStockList = async (params: StockList) => {
       try {
         const res = await axios({
-          method: 'get',
-          url: 'stockindex',
+          method: 'post',
+          url: 'stockregistration',
           headers: {
             'accept': 'application/json',
             'Authorization': `Bearer ${cookies.access_token}`,
-          }
+          },
+          data: {params}
         })
         if(!res.data){
           return false;
@@ -25,7 +23,7 @@ const useStockList = () => {
         return false;
     }
   }
-  return getStockList;
+  return postStockList;
 }
 
-export default useStockList
+export default useStockRegistration

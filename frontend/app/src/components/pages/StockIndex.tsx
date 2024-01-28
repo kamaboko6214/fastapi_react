@@ -62,7 +62,7 @@ const StockIndex = () => {
                         {stockItem.count}
                       </td>
                       <td className='text-center py-2 px-4 text-xl'>
-                        {stockItem.message}
+                        
                       </td>
                       <td className='text-centerpy-2 px-4 text-xl'>
                         <input type="number" className='w-12 px-1' />

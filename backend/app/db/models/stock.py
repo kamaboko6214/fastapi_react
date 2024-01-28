@@ -13,5 +13,4 @@ class Stock(Base):
     genre_id = Column(Integer, ForeignKey("genres.id"), index=True, comment='genre_id')
     deadline = Column(Integer, comment='deadline')
     count = Column(Integer, comment='count')
-    message = Column(String(100), comment='message')
     user_id = Column(Integer,ForeignKey("users.id"), comment='user_id')

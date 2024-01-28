@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from models.stock import Stock
+from .stock import Stock
 from app.db.database import Base
 # from database import Base
 
@@ -11,4 +11,4 @@ class Genre(Base):
     id = Column(Integer, primary_key=True, index=True, comment='id')
     name = Column(String(30), comment='name')
 
-    stocks = relationship("Stock", backref="genres")  
+    stocks = relationship("Stock", backref="genres")

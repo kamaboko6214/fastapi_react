@@ -4,11 +4,14 @@ export type LoginParams = {
 }
 
 export type StockList = {
-    id: number,
     name: string,
-    genre_id: number,
+    genre: string,
     deadline: string,
     count: number,
-    message: string,
-    user_id: number,
 }
+
+type params = {
+    genre_id: number,
+    name: string,
+    deadline: string
+  }

@@ -29,4 +29,36 @@ class User(UserBase):
     
     class Config:
         orm_mode = True
+        
+# 在庫関連の型定義
+class Stock(BaseModel):
+    name: str
 
+class StockCreate(Stock):
+    name: Optional[str] = None
+    genre_id: Optional[int] = None
+    deadline: Optional[int] = None
+    count: Optional[int] = None
+    user_id: Optional[int] = None
+
+class StockCreateResponse(StockCreate):
+    id: int
+    class Config:
+        orm_mode = True
+
+# メモ関連の型定義
+class memo(BaseModel):
+    name: str
+    count: int
+    user_id: int
+    remarks: str
+
+class memo(BaseModel):
+    name: str
+    count: int
+    user_id: int
+    remarks: str
+    
+class genreResponse(BaseModel):
+    id: int
+    name: str
