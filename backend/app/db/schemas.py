@@ -35,8 +35,7 @@ class Stock(BaseModel):
     name: str
 
 class StockCreate(Stock):
-    name: Optional[str] = None
-    genre_id: Optional[int] = None
+    genre_id: int
     deadline: Optional[int] = None
     count: Optional[int] = None
     user_id: Optional[int] = None

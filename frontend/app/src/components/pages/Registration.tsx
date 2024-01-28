@@ -7,25 +7,25 @@ import { useNavigate } from 'react-router-dom'
 
 const items: Array<{ [key: string]: string }> =
     [
-        {
-            'name': 'genre',
-            'label_name' : 'ジャンル',
-            'type': 'select',
-        },
+        // {
+        //     'name': 'genre',
+        //     'label_name' : 'ジャンル',
+        //     'type': 'select',
+        // },
         {
             'name': 'name',
             'type': 'text',
-            'label_name' : '名前',
+            'label_name': '名前',
             'placeholder': '例）　トマト'
         },
         {
             'name': 'deadline',
-            'label_name' : '有効期限',
+            'label_name': '有効期限',
             'type': 'date',
         },
         {
             'name': 'count',
-            'label_name' : '数量',
+            'label_name': '数量',
             'type': 'number',
             'placeholder': '3'
         }
@@ -51,7 +51,7 @@ const Registration = () => {
         }
     }
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         const params: StockList = {
             genre,
             name,
@@ -77,6 +77,12 @@ const Registration = () => {
             <h1 className='text-center pt-10 text-2xl font-bold text-gray-700'>在庫登録</h1>
             <form className='py-5 mt-12 text-center' onSubmit={handleSubmit}>
                 <div>
+                    <label className=" block mb-2 text-md font-medium text-gray-900 dark:text-white">ジャンル</label>
+                    <select name="example" className='mb-8 shadow appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500'>
+                        <option>食材</option>
+                        <option>調味料</option>
+                        <option>その他</option>
+                    </select>
                     {items.map((item, i) => {
                         return (
                             <div key={i}>

@@ -5,6 +5,7 @@ from app.crud import stock_crud
 from app.db.database import get_db
 from app.api import auth_api
 from app.db import schemas
+from app.db.models import genre
 
 router = APIRouter()
 
