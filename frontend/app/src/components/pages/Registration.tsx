@@ -34,14 +34,21 @@ const items: Array<{ [key: string]: string }> =
 const Registration = () => {
     const navigate = useNavigate()
     const postStockList = useStockRegistration()
-    const [genre, setGenre] = useState<string>('')
+    const [genre_id, setGenre_id] = useState<number>(1)
     const [name, setName] = useState<string>('')
     const [deadline, setDeadline] = useState<string>('')
     const [count, setCount] = useState<number>(0)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'genre') {
-            setGenre(e.target.value)
+            if(e.target.value = '食材') {
+                setGenre_id(1)
+            }else if(e.target.value = '調味料'){
+                setGenre_id(2)
+            }else if(e.target.value = 'その他'){
+                setGenre_id(3)
+            }
+            
         } else if (e.target.name === 'name') {
             setName(e.target.value)
         } else if (e.target.name === 'deadline') {
@@ -53,14 +60,14 @@ const Registration = () => {
 
     const handleSubmit = async () => {
         const params: StockList = {
-            genre,
+            genre_id,
             name,
             deadline,
             count,
         }
         try {
             const res = await postStockList(params)
-            if (res.status === 200) {
+            if (res === 200) {
                 alert('登録成功！')
                 navigate('/stockindex')
             } else {

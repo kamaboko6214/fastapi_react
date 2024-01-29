@@ -36,9 +36,8 @@ class Stock(BaseModel):
 
 class StockCreate(Stock):
     genre_id: int
-    deadline: Optional[int] = None
+    deadline: Optional[str] = None
     count: Optional[int] = None
-    user_id: Optional[int] = None
 
 class StockCreateResponse(StockCreate):
     id: int

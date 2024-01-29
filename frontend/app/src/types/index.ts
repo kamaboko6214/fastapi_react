@@ -5,7 +5,7 @@ export type LoginParams = {
 
 export type StockList = {
     name: string,
-    genre: string,
+    genre_id: number,
     deadline: string,
     count: number,
 }

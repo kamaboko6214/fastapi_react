@@ -7,18 +7,18 @@ const useStockRegistration = () => {
     const postStockList = async (params: StockList) => {
       try {
         const res = await axios({
-          method: 'post',
+          method: 'POST',
           url: 'stockregistration',
           headers: {
             'accept': 'application/json',
             'Authorization': `Bearer ${cookies.access_token}`,
           },
-          data: {params}
+          data: params
         })
         if(!res.data){
           return false;
         }
-        return res.data
+        return res.status
     } catch {
         return false;
     }
