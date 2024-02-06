@@ -1,4 +1,4 @@
-from fastapi import Depends, APIRouter
+from fastapi import Form, Depends, APIRouter, Form
 from sqlalchemy.orm import Session
 
 from app.crud import stock_crud
@@ -16,5 +16,5 @@ async def index(db: Session = Depends(get_db), user: schemas.User = Depends(auth
 
 #在庫登録
 @router.post("/stockregistration")
-async def registration(stodck_body: schemas.StockCreate, db: Session = Depends(get_db), user: schemas.User = Depends(auth_api.get_current_active_user)):
-    return await stock_crud.registration(stodck_body, db, user)
+async def registration(name: str = Form(...), genre_id: int = Form(...), deadline: str = Form(...), count: int = Form(...), db: Session = Depends(get_db), user: schemas.User = Depends(auth_api.get_current_active_user)):
+    return await stock_crud.registration(name, genre_id, deadline, count, db, user)

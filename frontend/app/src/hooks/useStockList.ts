@@ -4,9 +4,6 @@ import axios from "../api/axios";
 
 const useStockList = () => {
     const [cookies] = useCookies()
-    const diffdate = () => {
-      
-    }
     const getStockList = async () => {
       try {
         const res = await axios({

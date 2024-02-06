@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, MouseEvent } from 'react'
 import Button from '../common/Button'
 import Input from '../common/Input'
-import useStockRegistration from '../../hooks/useStockRegistration'
+import { useStockRegistration } from '../../hooks/useStockRegistration'
 import { StockList } from '../../types'
 import { useNavigate } from 'react-router-dom'
+import FlashMeesage from '../common/FlaskMessage '
 
 const items: Array<{ [key: string]: string }> =
     [
@@ -33,12 +34,12 @@ const items: Array<{ [key: string]: string }> =
 
 const Registration = () => {
     const navigate = useNavigate()
-    const postStockList = useStockRegistration()
     const [genre_id, setGenre_id] = useState<number>(1)
     const [name, setName] = useState<string>('')
     const [deadline, setDeadline] = useState<string>('')
     const [count, setCount] = useState<number>(0)
-
+    const [isRegister, setIsRegister] = useState<boolean>(false)
+    const postRegistration = useStockRegistration()
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'genre') {
             if(e.target.value = '食材') {
@@ -58,31 +59,30 @@ const Registration = () => {
         }
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
         const params: StockList = {
-            genre_id,
             name,
+            genre_id,
             deadline,
             count,
         }
         try {
-            const res = await postStockList(params)
-            if (res === 200) {
-                alert('登録成功！')
-                navigate('/stockindex')
-            } else {
-                alert('登録失敗')
-            }
+            await postRegistration(params)
+            navigate('/stockindex')
         }
-        catch {
-            alert('登録失敗')
+        catch(e) {
+            alert(e)
         }
     }
 
     return (
         <div className='bg-gray-200 min-h-screen w-full'>
             <h1 className='text-center pt-10 text-2xl font-bold text-gray-700'>在庫登録</h1>
-            <form className='py-5 mt-12 text-center' onSubmit={handleSubmit}>
+            {
+                isRegister ? <FlashMeesage/> : <></>
+            } 
+            <form className='py-5 mt-12 text-center'>
                 <div>
                     <label className=" block mb-2 text-md font-medium text-gray-900 dark:text-white">ジャンル</label>
                     <select name="example" className='mb-8 shadow appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500'>
@@ -99,7 +99,7 @@ const Registration = () => {
                         )
                     })}
                 </div>
-                <Button variant='squareBlue' className='mx-auto mt-5 mb-5 py-2 px-5 h-12 font-bold text-xl' >登録</Button>
+                <Button variant='squareBlue' className='mx-auto mt-5 mb-5 py-2 px-5 h-12 font-bold text-xl' onClick={handleSubmit}>登録</Button>
             </form>
         </div>
     )

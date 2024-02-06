@@ -1,29 +1,26 @@
 import { useCookies } from "react-cookie";
 import axios from "../api/axios";
 import { StockList } from "../types";
+import { useNavigate } from "react-router-dom";
   
-const useStockRegistration = () => {
+export const useStockRegistration = () => {
     const [cookies] = useCookies()
-    const postStockList = async (params: StockList) => {
-      try {
-        const res = await axios({
-          method: 'POST',
-          url: 'stockregistration',
-          headers: {
-            'accept': 'application/json',
-            'Authorization': `Bearer ${cookies.access_token}`,
-          },
-          data: params
-        })
-        if(!res.data){
-          return false;
-        }
-        return res.status
-    } catch {
-        return false;
-    }
+    const navigate = useNavigate()
+    const postRegistration = async(params: StockList) => {
+      await axios({
+        method: 'post',
+        url: '/stockregistration',
+        headers: {
+          'accept': 'application/json',
+          'Authorization': `Bearer ${cookies.access_token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        data: params
+      }).then((res)=> {
+        console.log(res.data)
+      }).catch(() => {
+        alert('失敗！') 
+      })
+    } 
+    return postRegistration
   }
-  return postStockList;
-}
-
-export default useStockRegistration
