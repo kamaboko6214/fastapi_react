@@ -2,12 +2,14 @@ import { useCookies } from "react-cookie";
 import axios from "../api/axios";
 import { StockList } from "../types";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
   
 export const useStockRegistration = () => {
     const [cookies] = useCookies()
     const navigate = useNavigate()
+    const [RegFlg, setRegFlg] = useState(false)
     const postRegistration = async(params: StockList) => {
-      await axios({
+      const res =  await axios({
         method: 'post',
         url: '/stockregistration',
         headers: {
@@ -18,9 +20,12 @@ export const useStockRegistration = () => {
         data: params
       }).then((res)=> {
         console.log(res.data)
-      }).catch(() => {
+        return res.status
+      }).catch((e) => {
         alert('失敗！') 
+        return e
       })
+      return res
     } 
     return postRegistration
   }

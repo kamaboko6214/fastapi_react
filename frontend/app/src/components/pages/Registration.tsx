@@ -1,18 +1,16 @@
-import React, { useState, MouseEvent } from 'react'
+import React, { useState, MouseEvent, FormEvent } from 'react'
+import { useForm } from 'react-hook-form'
+
 import Button from '../common/Button'
 import Input from '../common/Input'
 import { useStockRegistration } from '../../hooks/useStockRegistration'
 import { StockList } from '../../types'
 import { useNavigate } from 'react-router-dom'
-import FlashMeesage from '../common/FlaskMessage '
+import FlashMeesage from '../common/FlashMessage '
+import Require from '../common/Require'
 
 const items: Array<{ [key: string]: string }> =
     [
-        // {
-        //     'name': 'genre',
-        //     'label_name' : 'ジャンル',
-        //     'type': 'select',
-        // },
         {
             'name': 'name',
             'type': 'text',
@@ -33,7 +31,6 @@ const items: Array<{ [key: string]: string }> =
     ]
 
 const Registration = () => {
-    const navigate = useNavigate()
     const [genre_id, setGenre_id] = useState<number>(1)
     const [name, setName] = useState<string>('')
     const [deadline, setDeadline] = useState<string>('')
@@ -42,14 +39,14 @@ const Registration = () => {
     const postRegistration = useStockRegistration()
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'genre') {
-            if(e.target.value = '食材') {
+            if (e.target.value = '食材') {
                 setGenre_id(1)
-            }else if(e.target.value = '調味料'){
+            } else if (e.target.value = '調味料') {
                 setGenre_id(2)
-            }else if(e.target.value = 'その他'){
+            } else if (e.target.value = 'その他') {
                 setGenre_id(3)
             }
-            
+
         } else if (e.target.name === 'name') {
             setName(e.target.value)
         } else if (e.target.name === 'deadline') {
@@ -59,8 +56,8 @@ const Registration = () => {
         }
     }
 
-    const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
+    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         const params: StockList = {
             name,
             genre_id,
@@ -68,8 +65,13 @@ const Registration = () => {
             count,
         }
         try {
-            await postRegistration(params)
-            navigate('/stockindex')
+            const res = await postRegistration(params)
+            if(res == 200) {
+                setIsRegister(true)
+                setTimeout(() => {
+                    window.location.reload()
+                }, 3000);            
+            }
         }
         catch(e) {
             alert(e)
@@ -77,29 +79,27 @@ const Registration = () => {
     }
 
     return (
-        <div className='bg-gray-200 min-h-screen w-full'>
+        <div className='bg-gray-200 min-h-screen w-full flex flex-col items-center'>
             <h1 className='text-center pt-10 text-2xl font-bold text-gray-700'>在庫登録</h1>
             {
-                isRegister ? <FlashMeesage/> : <></>
-            } 
-            <form className='py-5 mt-12 text-center'>
-                <div>
-                    <label className=" block mb-2 text-md font-medium text-gray-900 dark:text-white">ジャンル</label>
-                    <select name="example" className='mb-8 shadow appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500'>
+                isRegister ? <FlashMeesage /> : <></>
+            }
+            <form className='w-96 py-5 mt-12' onSubmit={handleSubmit}>
+                    <p className="mb-2 text-md font-medium text-gray-900 dark:text-white"><Require/>ジャンル</p>
+                    <select name="example" className='w-full mb-8 shadw appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500'>
                         <option>食材</option>
                         <option>調味料</option>
                         <option>その他</option>
                     </select>
                     {items.map((item, i) => {
                         return (
-                            <div key={i}>
-                                <label className=" block mb-2 text-md font-medium text-gray-900 dark:text-white">{item.label_name}</label>
-                                <Input variant="index" placeholder={item.placeholder} name={item.name} type={item.type} className='mb-8' onChange={handleChange}></Input>
-                            </div>
+                            <div key={i} className='mb-8'>
+                                <p className="w-full mb-2 text-md font-medium text-gray-900 dark:text-white"><Require/>{item.label_name}</p>
+                                <Input id={item.name} variant="index" placeholder={item.placeholder} name={item.name} type={item.type} onChange={handleChange}></Input>
+                           </div>
                         )
                     })}
-                </div>
-                <Button variant='squareBlue' className='mx-auto mt-5 mb-5 py-2 px-5 h-12 font-bold text-xl' onClick={handleSubmit}>登録</Button>
+                <Button type='submit' variant='squareBlue' className='mx-auto mt-5 mb-5 py-2 px-5 h-12 font-bold text-xl'>登録</Button>
             </form>
         </div>
     )
