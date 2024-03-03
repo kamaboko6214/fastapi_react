@@ -4,19 +4,27 @@ import Button from '../common/Button'
 import { NavLink } from 'react-router-dom'
 import { GetStock } from '../../types/index'
 import useStockList from '../../hooks/useStockList'
+import StockDelete from './StockDelete'
+import LoadingAnimetion from '../common/LoadingAnimetion'
 
-const menus: string[] = ['食材', '調味料', 'その他']
 const StockIndex = () => {
+  const menus: string[] = ['食材', '調味料', 'その他']
   const getStockList = useStockList()
   const [stockList, setStockList] = useState<GetStock[]>([])
+  const [count, setCount] = useState<number>(0)
+  const [isDeleted, setIsDeleted] = useState(false)
   useEffect(() => {
     const init = async () => {
       const result = await getStockList()
       setStockList(result)
     }
     init()
-  }, [])
-  return (
+  }, [isDeleted])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCount(e.target.valueAsNumber)
+  }
+  const content = (
     <div className='bg-gray-200 min-h-screen'>
       <h1 className='text-center pt-10 text-2xl font-bold text-gray-700'>在庫一覧</h1>
       <div className='flex flex-col items-center justify-center py-5 mx-32'>
@@ -58,9 +66,9 @@ const StockIndex = () => {
                   <td className='text-center py-2 px-4 text-xl'>
                     {stockItem.count}
                   </td>
-                  <td className='text-centerpy-2 px-4 text-xl'>
-                    <input type="number" min={0} max={stockItem.count} className='w-12 px-1' />
-                    <button>削除</button>
+                  <td className='text-center py-2 px-4 text-xl'>
+                    <input type="number" min={0} max={stockItem.count} onChange={handleChange} className='w-12 px-1 mr-5' />
+                    <StockDelete count={count} stock_count={stockItem.count} stock_id={stockItem.id} SetisDeleted={setIsDeleted} />
                   </td>
                 </tr>
               )
@@ -69,6 +77,11 @@ const StockIndex = () => {
         </table>
       </div>
     </div>
+  )
+  return (
+    <>
+      {isDeleted ? <LoadingAnimetion /> : content}
+    </>
   )
 }
 

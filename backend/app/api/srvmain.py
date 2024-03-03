@@ -19,7 +19,7 @@ async def index(db: Session = Depends(get_db), user: schemas.User = Depends(auth
 async def registration(name: str = Form(...), genre_id: int = Form(...), deadline: str = Form(...), count: int = Form(...), db: Session = Depends(get_db), user: schemas.User = Depends(auth_api.get_current_active_user)):
     return await stock_crud.registration(name, genre_id, deadline, count, db, user)
 
-#在庫登録
-@router.delete("/stockregistration")
-async def registration(name: str = Form(...), genre_id: int = Form(...), deadline: str = Form(...), count: int = Form(...), db: Session = Depends(get_db), user: schemas.User = Depends(auth_api.get_current_active_user)):
-    return await stock_crud.registration(name, genre_id, deadline, count, db, user)
+#在庫削除
+@router.delete("/deleteStock")
+async def registration(id: str = Form(...), count: int = Form(...), db: Session = Depends(get_db), user: schemas.User = Depends(auth_api.get_current_active_user)):
+    return await stock_crud.delete(id, count, db, user)

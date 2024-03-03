@@ -31,7 +31,7 @@ const Input = ({ variant, placeholder, name, type, className, ...props }: Props)
         name={name}
         placeholder={placeholder}
         type={type}
-        min={0}
+        min={-1}
       />
     </>
   );

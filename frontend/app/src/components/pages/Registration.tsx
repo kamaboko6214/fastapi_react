@@ -56,7 +56,7 @@ const Registration = () => {
         }
     }
 
-    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const params: StockList = {
             name,
@@ -66,14 +66,14 @@ const Registration = () => {
         }
         try {
             const res = await postRegistration(params)
-            if(res == 200) {
+            if (res == 200) {
                 setIsRegister(true)
                 setTimeout(() => {
                     window.location.reload()
-                }, 3000);            
+                }, 3000);
             }
         }
-        catch(e) {
+        catch (e) {
             alert(e)
         }
     }
@@ -85,21 +85,23 @@ const Registration = () => {
                 isRegister ? <FlashMeesage /> : <></>
             }
             <form className='w-96 py-5 mt-12' onSubmit={handleSubmit}>
-                    <p className="mb-2 text-md font-medium text-gray-900 dark:text-white"><Require/>ジャンル</p>
-                    <select name="example" className='w-full mb-8 shadw appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500'>
-                        <option>食材</option>
-                        <option>調味料</option>
-                        <option>その他</option>
-                    </select>
-                    {items.map((item, i) => {
-                        return (
-                            <div key={i} className='mb-8'>
-                                <p className="w-full mb-2 text-md font-medium text-gray-900 dark:text-white"><Require/>{item.label_name}</p>
-                                <Input id={item.name} variant="index" placeholder={item.placeholder} name={item.name} type={item.type} onChange={handleChange}></Input>
-                           </div>
-                        )
-                    })}
-                <Button type='submit' variant='squareBlue' className='mx-auto mt-5 mb-5 py-2 px-5 h-12 font-bold text-xl'>登録</Button>
+                <p className="mb-2 text-md font-medium text-gray-900 dark:text-white"><Require />ジャンル</p>
+                <select name="example" className='w-full mb-8 shadw appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500'>
+                    <option>食材</option>
+                    <option>調味料</option>
+                    <option>その他</option>
+                </select>
+                {items.map((item, i) => {
+                    return (
+                        <div key={i} className='mb-8'>
+                            <p className="w-full mb-2 text-md font-medium text-gray-900 dark:text-white"><Require />{item.label_name}</p>
+                            <Input id={item.name} variant="index" placeholder={item.placeholder} name={item.name} type={item.type} onChange={handleChange}></Input>
+                        </div>
+                    )
+                })}
+                <div className='flex justify-center'>
+                    <Button type='submit' variant='squareBlue' className='mt-5 mb-5 py-2 px-5 h-12 font-bold text-xl'>登録</Button>
+                </div>
             </form>
         </div>
     )
